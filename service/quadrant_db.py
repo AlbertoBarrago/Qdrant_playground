@@ -3,7 +3,7 @@ import os
 import numpy as np
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, FieldCondition, Match, VectorParams, PointStruct, Filter, MatchText
+from qdrant_client.models import Distance, VectorParams, PointStruct, Filter
 
 load_dotenv()
 
