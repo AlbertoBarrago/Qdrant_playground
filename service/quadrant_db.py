@@ -1,9 +1,9 @@
 import os
-from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, VectorParams
+
 import numpy as np
-from qdrant_client.models import PointStruct
 from dotenv import load_dotenv
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, FieldCondition, Match, VectorParams, PointStruct, Filter, MatchText
 
 load_dotenv()
 
@@ -63,3 +63,20 @@ def search_vector():
     )
     print(hits)
     return hits
+
+
+def search_with_filter(query: str):
+    query_vector = np.random.rand(100)
+    client = connect_quadrant()
+    hits = client.search(
+        collection_name=collection_name,
+        query_vector=query_vector,
+        query_filter=Filter(
+            must=[
+                {"key": "name", "match": {"value": query}}
+            ]
+        ),
+        limit=1  # Return 5 closest points
+    )
+
+    print(hits)

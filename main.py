@@ -1,4 +1,4 @@
-from service.quadrant_db import connect_quadrant, close_connection, create_vector, create_collection, search_vector
+from service.quadrant_db import search_with_filter
 
 if __name__ == '__main__':
-    search_vector()
+    search_with_filter("Bibi")
