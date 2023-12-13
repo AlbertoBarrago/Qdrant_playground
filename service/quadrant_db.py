@@ -9,6 +9,7 @@ load_dotenv()
 
 qdrant_url = os.getenv('QDRANT_URL')
 qdrant_token = os.getenv('QDRANT_TOKEN')
+collection_name = os.getenv('COLLECTION_NAME')
 
 
 def connect_quadrant():
@@ -24,7 +25,7 @@ def create_collection():
     client = connect_quadrant()
 
     client.recreate_collection(
-        collection_name="albz_collection",
+        collection_name=collection_name,
         vectors_config=VectorParams(size=100, distance=Distance.COSINE),
     )
 
@@ -40,7 +41,7 @@ def create_vector():
 
     vectors = np.random.rand(100, 100)
     client.upsert(
-        collection_name="albz_collection",
+        collection_name=collection_name,
         points=[
             PointStruct(
                 id=idx,
@@ -56,7 +57,7 @@ def search_vector():
     client = connect_quadrant()
     query_vector = np.random.rand(100)
     hits = client.search(
-        collection_name="albz_collection",
+        collection_name=collection_name,
         query_vector=query_vector,
         limit=5  # Return 5 closest points
     )
