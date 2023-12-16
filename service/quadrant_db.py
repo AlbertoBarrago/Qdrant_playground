@@ -36,7 +36,7 @@ def close_connection():
     client.close()
 
 
-def create_vector():
+def create_vector(payload):
     client = connect_quadrant()
 
     vectors = np.random.rand(100, 100)
@@ -46,11 +46,16 @@ def create_vector():
             PointStruct(
                 id=idx,
                 vector=vector.tolist(),
-                payload={"name": "Bibi", "status": "Bibi's lover"}
+                payload=payload
             )
             for idx, vector in enumerate(vectors)
         ]
     )
+
+
+def update_collection(payload_list):
+    for payload in payload_list:
+        create_vector(payload)
 
 
 def search_vector():
